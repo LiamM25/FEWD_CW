@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import SessionsPage from "./pages/SessionsPage";
 import ShortlistedPage from "./pages/ShortlistedPage";
+import LandingSection from "./pages/LandingSection";
 
 function App() {
   const [shortlist, setShortlist] = useState([]); // Manage the shortlisted sessions
@@ -29,6 +30,7 @@ function App() {
   return (
     <div className="App">
       <main>
+        <LandingSection />
         <SessionsPage onShortlist={handleShortlist} />
 
         <ShortlistedPage
