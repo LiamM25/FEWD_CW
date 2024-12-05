@@ -1,54 +1,62 @@
-import React, { useState, useEffect } from "react";
-import { Card, Button } from "react-bootstrap";
-import "./SessionCard.css";
+import React, { useState } from "react";
+import { Card, Button } from "react-bootstrap"; // Removed Row and Col imports
 
 const SessionCard = ({ session, onShortlist, isShortlisted }) => {
-  const [localShortlisted, setLocalShortlisted] = useState(isShortlisted); // Local state to manage button state
-
-  useEffect(() => {
-    // Sync local state with the parent state when isShortlisted prop changes
-    setLocalShortlisted(isShortlisted);
-  }, [isShortlisted]);
+  const [isExpanded, setIsExpanded] = useState(false); // State to toggle description
 
   const handleShortlistClick = () => {
     onShortlist(session); // Notify parent to add/remove session from shortlist
   };
 
   const toggleDescription = () => {
-    // Logic for expanding the description
+    setIsExpanded((prev) => !prev); // Toggle the expanded state for the description
   };
 
   return (
-    <Card className="session-card h-100">
+    // Session Card
+    <Card className="h-100 shadow-sm border-light rounded">
       <Card.Body>
+        {/* Session Title */}
         <Card.Title>{session.title}</Card.Title>
+
+        {/* Session Subtitle */}
         <Card.Subtitle className="mb-2 text-muted">
           {session.speaker} | {session.time} | Session {session.session}
         </Card.Subtitle>
+
+        {/* Session Description */}
         <Card.Text>
-          {session.description.substring(0, 100)}...
+          {isExpanded
+            ? session.description
+            : `${session.description.substring(0, 100)}...`}
+          <br />
           <Button
-            variant="link"
+            variant="link text-muted"
             onClick={toggleDescription}
             className="p-0 ms-1"
           >
-            Read More
+            {isExpanded ? "Read Less" : "Read More"}
           </Button>
         </Card.Text>
 
         {/* Shortlist Button */}
         <Button
-          className={`shortlist-button ${
-            localShortlisted ? "shortlisted" : ""
-          }`}
+          variant={isShortlisted ? "success" : "outline-success"}
           onClick={handleShortlistClick}
-          disabled={localShortlisted}
+          disabled={isShortlisted}
+          className="w-20 mb-2"
         >
-          {localShortlisted ? "Shortlisted" : "Add to Shortlist"}
+          {isShortlisted ? "Shortlisted" : "Add to Shortlist"}
         </Button>
 
         {/* Add to Schedule Button */}
-        <Button className="add-schedule-btn mt-2">Add to Schedule</Button>
+        <Button
+          variant="success"
+          className="w-20 mb-2 mx-2"
+          onClick={() => {} /* Implement functionality later */}
+        >
+          Add to Schedule
+        </Button>
       </Card.Body>
     </Card>
   );
