@@ -1,77 +1,110 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import SessionCard from "../components/SessionCard";
-import ShortlistedPage from "../pages/ShortlistedPage"; // Import ShortlistedPage
+import SessionCard from "../components/SessionCard"; 
+import FilterControls from "../components/FilterControl"; 
+import SearchBar from "../components/SearchBar"; 
 
-const SessionsPage = () => {
-  const [sessions, setSessions] = useState([]);
-  const [shortlist, setShortlist] = useState([]); // Track shortlisted sessions
-  const [visibleSessions, setVisibleSessions] = useState(4); // Track the number of sessions to display
+const SessionsPage = ({ sessions, shortlist, onShortlist }) => {
+  const [visibleSessions, setVisibleSessions] = useState(4); // Number of visible sessions
+  const [activeFilters, setActiveFilters] = useState({}); // Active filters 
+  const [searchTerm, setSearchTerm] = useState(""); // State for search term
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/talks")
-      .then((response) => setSessions(response.data))
-      .catch((error) => console.error("Error fetching sessions:", error));
-  }, []);
+  // Handle filter changes
+  const handleFilterChange = (filters) => {
+    setActiveFilters((prevFilters) => ({
+      ...prevFilters,
+      ...filters, // Update the relevant filter
+    }));
+  };
 
-  const handleShortlist = (session) => {
-    setShortlist((prevShortlist) => {
-      if (prevShortlist.some((item) => item.id === session.id)) {
-        // If session is already shortlisted, remove it
-        return prevShortlist.filter((item) => item.id !== session.id);
-      } else {
-        // Add session to shortlist
-        return [...prevShortlist, session];
-      }
+  // Handle search term updates
+  const handleSearch = (term) => {
+    setSearchTerm(term.toLowerCase());
+  };
+
+  // Filter sessions based on search term and active filters
+  const getFilteredSessions = () => {
+    return sessions.filter((session) => {
+      // Search term filter
+      const matchesSearchTerm = searchTerm
+        ? session.title.toLowerCase().includes(searchTerm) ||
+          session.speaker.toLowerCase().includes(searchTerm) ||
+          session.tags.some((tag) => tag.toLowerCase().includes(searchTerm))
+        : true;
+
+      // Apply active filters 
+      const matchesSpeaker = activeFilters.speaker
+        ? session.speaker === activeFilters.speaker
+        : true;
+
+      const matchesTime = activeFilters.time
+        ? session.time === activeFilters.time
+        : true;
+
+      const matchesSession = activeFilters.session
+        ? session.session === activeFilters.session
+        : true;
+
+      const matchesTags =
+        activeFilters.tags && activeFilters.tags.length > 0
+          ? session.tags.includes(activeFilters.tags)
+          : true;
+
+      // Return the session if all filters (search and active) match
+      return (
+        matchesSearchTerm &&
+        matchesSpeaker &&
+        matchesTime &&
+        matchesSession &&
+        matchesTags
+      );
     });
   };
 
-  const handleRemoveFromShortlist = (session) => {
-    setShortlist((prevShortlist) => {
-      return prevShortlist.filter((item) => item.id !== session.id); // Remove from shortlist
-    });
-  };
+  // Get the filtered sessions
+  const filteredSessions = getFilteredSessions();
 
-  const isShortlisted = (id) => {
-    return shortlist.some((session) => session.id === id);
-  };
-
+  // Handle the 'load more' functionality
   const handleLoadMore = () => {
     setVisibleSessions((prev) => prev + 4); // Load 4 more sessions
   };
 
   return (
     <Container className="mt-4">
-      <h1 className="text-left mb-4">/Sessions</h1>
-      <Row xs={1} sm={1} md={1} lg={1} className="g-4">
-        {sessions.slice(0, visibleSessions).map((session) => (
-          <Col key={session.id}>
+      {/* Page Header */}
+      <h2 className="text-left mb-4 display-3">/Sessions</h2>
+
+      {/* Search Bar */}
+      <SearchBar onSearch={handleSearch} />
+
+      {/* Filters */}
+      <FilterControls
+        sessions={sessions}
+        activeFilters={activeFilters}
+        onFilterChange={handleFilterChange}
+      />
+
+      {/* Display Filtered Sessions */}
+      <Row xs={1} sm={1} md={1} lg={1} className="g-4 justify-content-center">
+        {filteredSessions.slice(0, visibleSessions).map((session) => (
+          <Col key={session.id} className="justify-content-center">
             <SessionCard
               session={session}
-              isShortlisted={isShortlisted(session.id)} // Pass state for shortlisted check
-              onShortlist={handleShortlist} // Handle adding/removing from shortlist
+              isShortlisted={shortlist.some((item) => item.id === session.id)}
+              onShortlist={onShortlist}
             />
           </Col>
         ))}
       </Row>
 
       {/* Load More Button */}
-      {visibleSessions < sessions.length && (
+      {visibleSessions < filteredSessions.length && (
         <div className="text-center mt-4">
           <Button onClick={handleLoadMore} variant="secondary">
             Load More
           </Button>
         </div>
       )}
-
-      {/* Display Shortlisted Page */}
-      <ShortlistedPage
-        shortlist={shortlist} // Pass shortlisted sessions
-        onRemoveFromShortlist={handleRemoveFromShortlist} // Pass handler to remove from shortlist
-        onAddToSchedule={() => {}} // Pass function if needed for Add to Schedule
-      />
     </Container>
   );
 };

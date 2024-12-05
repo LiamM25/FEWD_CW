@@ -4,7 +4,7 @@ import { Card, Button } from "react-bootstrap";
 const ShortlistedSessionCard = ({
   session,
   onRemoveFromShortlist, // Handler to remove session from shortlist
-  onAddToSchedule, // Handler for adding to schedule (if needed)
+  onAddToSchedule,      // Handler for adding to schedule 
 }) => {
   return (
     <Card className="session-card h-100">
@@ -17,7 +17,8 @@ const ShortlistedSessionCard = ({
 
         {/* Remove from Shortlist Button */}
         <Button
-          className="shortlist-button"
+        variant="danger"
+          className="shortlist-button w-20 mb-2 mx-2"
           onClick={() => onRemoveFromShortlist(session)} // Remove from shortlist
         >
           Remove from Shortlist
@@ -25,7 +26,8 @@ const ShortlistedSessionCard = ({
 
         {/* Add to Schedule Button */}
         <Button
-          className="add-schedule-btn mt-2"
+          variant="success"
+          className="add-schedule-btn w-20 mb-2 mx-2"
           onClick={() => onAddToSchedule(session)} // Add to schedule
         >
           Add to Schedule
