@@ -1,0 +1,168 @@
+/* src/components/SessionCard.css */
+
+/* Styling for the card container */
+.session-card {
+    border: 1px solid #dee2e6;
+    /* Subtle border for better distinction */
+    border-radius: 8px;
+    /* Rounded corners for a modern look */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Soft shadow for a lifted effect */
+    overflow: hidden;
+    /* Ensure content doesn’t overflow */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    /* Smooth hover effects */
+}
+
+/* Hover effects for the card */
+.session-card:hover {
+    transform: translateY(-5px);
+    /* Slight upward lift on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Stronger shadow on hover */
+}
+
+/* Card body content */
+.session-card .card-body {
+    padding: 20px;
+    /* Add spacing inside the card */
+}
+
+/* Card title */
+.session-card .card-title {
+    font-size: 2.5rem;
+    /* Large title font size */
+    font-weight: 700;
+    /* Bold text */
+    color: #333;
+    /* Dark gray for better readability */
+    margin-bottom: 10px;
+    /* Space below the title */
+}
+
+/* Card subtitle */
+.session-card .card-subtitle {
+    font-size: 1rem;
+    /* Slightly smaller font for the subtitle */
+    color: #e15320;
+    /* Distinctive orange color */
+    margin-bottom: 15px;
+    /* Space below the subtitle */
+}
+
+/* Card text */
+.session-card .card-text {
+    font-size: 1.2rem;
+    /* Slightly smaller text for the description */
+    color: #555;
+    /* Medium gray for readability */
+    line-height: 1.5;
+    /* Better line spacing for readability */
+    margin-bottom: 15px;
+    /* Space below the text */
+}
+
+/* Read More/Read Less button */
+.session-card .btn-link {
+    font-size: 0.9rem;
+    /* Slightly smaller font size */
+    color: #007bff;
+    /* Bootstrap primary blue */
+    padding: 0;
+    text-decoration: none;
+    /* Remove underline by default */
+}
+
+.session-card .btn-link:hover {
+    text-decoration: underline;
+    /* Underline on hover for clarity */
+}
+
+/* FOR SHORTLIST BUTTON */
+/* Transparent background for the shortlist button */
+.shortlist-button {
+    color: #000000 !important;
+    background-color: transparent !important; 
+    /* Transparent background */
+    color: #007bff;
+    /* Primary blue text color */
+    border: 0px !important;
+    /* Primary blue border */
+    padding: 8px 12px;
+    /* Consistent padding */
+    font-size: 1.2rem !important;
+    /* Slightly smaller font size */
+    transition: all 0.3s ease;
+    /* Smooth transition effect */
+}
+
+/* Hover effect for the shortlist button */
+.shortlist-button:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+    /* Slight blue background on hover */
+    color: #0056b3;
+    /* Darker blue text */
+}
+
+/* When the button is shortlisted */
+.shortlist-button.shortlisted {
+    background-color: transparent;
+    /* Transparent background */
+    color: #28a745 !important;
+    /* Success green text color */
+    border-color: #28a745;
+    /* Green border */
+    cursor: not-allowed;
+    /* Disable pointer on hover */
+}
+
+.shortlist-button.shortlisted:hover {
+    background-color: transparent;
+    /* Ensure it stays transparent */
+    color: #28a745;
+    /* Keep the green text color */
+}
+
+/* ADDITIONAL BUTTON STYLES */
+/* Add to Schedule Button */
+.session-card .add-schedule-btn {
+    background-color: #28a745;
+    /* Success green */
+    border: none;
+    /* No border for a clean look */
+    color: white;
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    transition: background-color 0.3s ease;
+}
+
+.session-card .add-schedule-btn:hover {
+    background-color: #218838;
+    /* Darker green on hover */
+}
+
+/* Responsive spacing adjustments */
+@media (max-width: 768px) {
+    .session-card .card-title {
+        font-size: 1.8rem;
+        /* Slightly smaller title font for mobile */
+    }
+
+    .session-card .card-subtitle {
+        font-size: 0.9rem;
+        /* Smaller subtitle for mobile */
+    }
+
+    .session-card .card-text {
+        font-size: 0.85rem;
+        /* Smaller description text */
+    }
+
+    .shortlist-button,
+    .session-card .add-schedule-btn {
+        font-size: 0.85rem;
+        /* Adjust button font size for mobile */
+        padding: 6px 10px;
+        /* Smaller padding for compact buttons */
+    }
+}

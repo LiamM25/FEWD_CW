@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import SessionsPage from "./pages/SessionsPage";
-import ShortlistedPage from "./pages/ShortlistedPage";
-import LandingSection from "./pages/LandingSection";
+import SessionsPage from "./pages/SessionsPage"; // Import SessionsPage
+import ShortlistedPage from "./pages/ShortlistedPage"; // Import ShortlistedPage
+import LandingSection from "./pages/LandingSection"; // Import LandingSection
 
 function App() {
   const [shortlist, setShortlist] = useState([]); // Manage the shortlisted sessions
 
+  // Add session to shortlist
   const handleShortlist = (session) => {
     console.log("Adding to shortlist:", session.title); // Debugging the function call
 
@@ -15,7 +16,7 @@ function App() {
     }
   };
 
-  // Handle deleting session from shortlist
+  // Remove session from shortlist
   const handleDeleteFromShortlist = (session) => {
     setShortlist((prevShortlist) =>
       prevShortlist.filter((s) => s.id !== session.id)
@@ -30,14 +31,15 @@ function App() {
   return (
     <div className="App">
       <main>
+        {/* Landing Section */}
         <LandingSection />
-        <SessionsPage onShortlist={handleShortlist} />
 
-        <ShortlistedPage
-          shortlist={shortlist}
-          onDeleteFromShortlist={handleDeleteFromShortlist}
-          onAddToSchedule={handleAddToSchedule}
+        {/* Sessions Page */}
+        <SessionsPage
+          onShortlist={handleShortlist} // Pass shortlist handler to SessionsPage
         />
+
+
       </main>
     </div>
   );

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import SessionCard from "../components/SessionCard";
+import ShortlistedPage from "../pages/ShortlistedPage"; // Import ShortlistedPage
 
-const SessionsPage = ({ onShortlist, onAddToSchedule }) => {
+const SessionsPage = () => {
   const [sessions, setSessions] = useState([]);
-  const [visibleSessions, setVisibleSessions] = useState(4); // Number of visible sessions
-  const [expandedSessions, setExpandedSessions] = useState({}); // Track expanded state for each session
+  const [shortlist, setShortlist] = useState([]); // Track shortlisted sessions
+  const [visibleSessions, setVisibleSessions] = useState(4); // Track the number of sessions to display
 
   useEffect(() => {
     axios
@@ -14,69 +16,62 @@ const SessionsPage = ({ onShortlist, onAddToSchedule }) => {
       .catch((error) => console.error("Error fetching sessions:", error));
   }, []);
 
-  const toggleDescription = (id) => {
-    setExpandedSessions((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
+  const handleShortlist = (session) => {
+    setShortlist((prevShortlist) => {
+      if (prevShortlist.some((item) => item.id === session.id)) {
+        // If session is already shortlisted, remove it
+        return prevShortlist.filter((item) => item.id !== session.id);
+      } else {
+        // Add session to shortlist
+        return [...prevShortlist, session];
+      }
+    });
+  };
+
+  const handleRemoveFromShortlist = (session) => {
+    setShortlist((prevShortlist) => {
+      return prevShortlist.filter((item) => item.id !== session.id); // Remove from shortlist
+    });
+  };
+
+  const isShortlisted = (id) => {
+    return shortlist.some((session) => session.id === id);
   };
 
   const handleLoadMore = () => {
-    setVisibleSessions((prev) => prev + 4); // Load 4 more sessions each time
+    setVisibleSessions((prev) => prev + 4); // Load 4 more sessions
   };
 
   return (
     <Container className="mt-4">
-      <h2 className="text-center mb-4">Sessions</h2>
+      <h1 className="text-left mb-4">/Sessions</h1>
       <Row xs={1} sm={1} md={1} lg={1} className="g-4">
         {sessions.slice(0, visibleSessions).map((session) => (
           <Col key={session.id}>
-            <Card className="h-100">
-              <Card.Body>
-                <Card.Title>{session.title}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">
-                  {session.speaker} | {session.time} | Session:{" "}
-                  {session.session}
-                </Card.Subtitle>
-                <Card.Text>
-                  {expandedSessions[session.id]
-                    ? session.description
-                    : `${session.description.substring(0, 100)}...`}
-                  <br />
-                  <Button
-                    variant="link"
-                    onClick={() => toggleDescription(session.id)}
-                    className="p-0 ms-1"
-                  >
-                    {expandedSessions[session.id] ? "Read Less" : "Read More"}
-                  </Button>
-                </Card.Text>
-                <div className="d-flex justify-content-between">
-                  <Button
-                    variant="primary"
-                    onClick={() => onShortlist(session)}
-                  >
-                    Add to Shortlist
-                  </Button>
-                  <Button
-                    variant="success"
-                    onClick={() => onAddToSchedule(session)}
-                  >
-                    Add to Schedule
-                  </Button>
-                </div>
-              </Card.Body>
-            </Card>
+            <SessionCard
+              session={session}
+              isShortlisted={isShortlisted(session.id)} // Pass state for shortlisted check
+              onShortlist={handleShortlist} // Handle adding/removing from shortlist
+            />
           </Col>
         ))}
       </Row>
-      {visibleSessions < sessions.length && ( // Show Load More button only if there are more sessions
+
+      {/* Load More Button */}
+      {visibleSessions < sessions.length && (
         <div className="text-center mt-4">
           <Button onClick={handleLoadMore} variant="secondary">
             Load More
           </Button>
         </div>
       )}
+
+      {/* Display Shortlisted Page */}
+      <ShortlistedPage
+        shortlist={shortlist} // Pass shortlisted sessions
+        onRemoveFromShortlist={handleRemoveFromShortlist} // Pass handler to remove from shortlist
+        onAddToSchedule={() => {}} // Pass function if needed for Add to Schedule
+      />
     </Container>
   );
 };
