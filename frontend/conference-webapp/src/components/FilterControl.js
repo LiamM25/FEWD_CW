@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { Row, Col, Form } from "react-bootstrap";
 
-const FilterControls = ({ sessions, onFilterChange }) => {
-  const [filters, setFilters] = useState({
-    speaker: "",
-    time: "",
-    session: "",
-    tags: "",
-  });
-
+const FilterControls = ({ sessions, activeFilters, onFilterChange }) => {
   const handleFilterChange = (key, value) => {
-    const newFilters = { ...filters, [key]: value };
-    setFilters(newFilters);
+    const newFilters = { ...activeFilters, [key]: value };
     onFilterChange(newFilters); // Notify parent about filter changes
   };
+
+  // Extract unique values for speaker, time, session, and tags
+  const uniqueSpeakers = [...new Set(sessions.map((s) => s.speaker))];
+  const uniqueTimes = [...new Set(sessions.map((s) => s.time))];
+  const uniqueSessions = [...new Set(sessions.map((s) => s.session))];
+  const uniqueTags = [
+    ...new Set(sessions.flatMap((s) => s.tags)),
+  ];
 
   return (
     <Row className="mb-4">
@@ -21,10 +21,10 @@ const FilterControls = ({ sessions, onFilterChange }) => {
       <Col>
         <Form.Select
           onChange={(e) => handleFilterChange("speaker", e.target.value)}
-          value={filters.speaker}
+          value={activeFilters.speaker}
         >
           <option value="">Filter by Speaker</option>
-          {[...new Set(sessions.map((s) => s.speaker))].map((speaker) => (
+          {uniqueSpeakers.map((speaker) => (
             <option key={speaker} value={speaker}>
               {speaker}
             </option>
@@ -36,10 +36,10 @@ const FilterControls = ({ sessions, onFilterChange }) => {
       <Col>
         <Form.Select
           onChange={(e) => handleFilterChange("time", e.target.value)}
-          value={filters.time}
+          value={activeFilters.time}
         >
           <option value="">Filter by Time</option>
-          {[...new Set(sessions.map((s) => s.time))].map((time) => (
+          {uniqueTimes.map((time) => (
             <option key={time} value={time}>
               {time}
             </option>
@@ -51,10 +51,10 @@ const FilterControls = ({ sessions, onFilterChange }) => {
       <Col>
         <Form.Select
           onChange={(e) => handleFilterChange("session", e.target.value)}
-          value={filters.session}
+          value={activeFilters.session}
         >
           <option value="">Filter by Session</option>
-          {[...new Set(sessions.map((s) => s.session))].map((session) => (
+          {uniqueSessions.map((session) => (
             <option key={session} value={session}>
               {session}
             </option>
@@ -66,10 +66,10 @@ const FilterControls = ({ sessions, onFilterChange }) => {
       <Col>
         <Form.Select
           onChange={(e) => handleFilterChange("tags", e.target.value)}
-          value={filters.tags}
+          value={activeFilters.tags}
         >
           <option value="">Filter by Tags</option>
-          {[...new Set(sessions.flatMap((s) => s.tags))].map((tag) => (
+          {uniqueTags.map((tag) => (
             <option key={tag} value={tag}>
               {tag}
             </option>
