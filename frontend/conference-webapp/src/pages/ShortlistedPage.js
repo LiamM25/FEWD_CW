@@ -1,11 +1,11 @@
 import React from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
-import ShortlistedSessionCard from "../components/ShortlistedSessionCard"; // Import the ShortlistedSessionCard component
+import { Container, Row, Col } from "react-bootstrap";
+import ShortlistedSessionCard from "../components/ShortlistedSessionCard";
 
 const ShortlistedPage = ({ shortlist, onRemoveFromShortlist, onAddToSchedule }) => {
   return (
     <Container className="mt-4">
-      <h2 className="text-left mb-4 display-4">/Shortlisted Sessions</h2>
+      <h2 className="text-left mb-4 display-4">/Shortlist</h2>
 
       {/* If no sessions are shortlisted, display a message */}
       {shortlist.length === 0 ? (

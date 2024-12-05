@@ -17,7 +17,7 @@ const SessionCard = ({ session, onShortlist, isShortlisted }) => {
     <Card className="h-100 shadow-sm border-light rounded">
       <Card.Body>
         {/* Session Title */}
-        <Card.Title>{session.title}</Card.Title>
+        <Card.Title className="display-6">{session.title}</Card.Title>
 
         {/* Session Subtitle */}
         <Card.Subtitle className="mb-2 text-muted">

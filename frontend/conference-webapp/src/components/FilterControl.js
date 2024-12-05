@@ -7,7 +7,7 @@ const FilterControls = ({ sessions, activeFilters, onFilterChange }) => {
     onFilterChange(newFilters); // Notify parent about filter changes
   };
 
-  // Extract unique values for speaker, time, session, and tags
+  // Extract values 
   const uniqueSpeakers = [...new Set(sessions.map((s) => s.speaker))];
   const uniqueTimes = [...new Set(sessions.map((s) => s.time))];
   const uniqueSessions = [...new Set(sessions.map((s) => s.session))];

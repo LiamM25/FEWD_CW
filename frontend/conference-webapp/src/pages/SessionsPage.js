@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import SessionCard from "../components/SessionCard"; // Import SessionCard
-import FilterControls from "../components/FilterControl"; // Import FilterControls
-import SearchBar from "../components/SearchBar"; // Import SearchBar
+import SessionCard from "../components/SessionCard"; 
+import FilterControls from "../components/FilterControl"; 
+import SearchBar from "../components/SearchBar"; 
 
 const SessionsPage = ({ sessions, shortlist, onShortlist }) => {
   const [visibleSessions, setVisibleSessions] = useState(4); // Number of visible sessions
-  const [activeFilters, setActiveFilters] = useState({}); // Active filters (e.g., speaker, time, etc.)
+  const [activeFilters, setActiveFilters] = useState({}); // Active filters 
   const [searchTerm, setSearchTerm] = useState(""); // State for search term
 
   // Handle filter changes
@@ -19,7 +19,7 @@ const SessionsPage = ({ sessions, shortlist, onShortlist }) => {
 
   // Handle search term updates
   const handleSearch = (term) => {
-    setSearchTerm(term.toLowerCase()); // Normalize search term to lowercase
+    setSearchTerm(term.toLowerCase());
   };
 
   // Filter sessions based on search term and active filters
@@ -32,7 +32,7 @@ const SessionsPage = ({ sessions, shortlist, onShortlist }) => {
           session.tags.some((tag) => tag.toLowerCase().includes(searchTerm))
         : true;
 
-      // Apply active filters (speaker, time, session, tags)
+      // Apply active filters 
       const matchesSpeaker = activeFilters.speaker
         ? session.speaker === activeFilters.speaker
         : true;
@@ -64,7 +64,7 @@ const SessionsPage = ({ sessions, shortlist, onShortlist }) => {
   // Get the filtered sessions
   const filteredSessions = getFilteredSessions();
 
-  // Handle the load more functionality (shows 4 more sessions at a time)
+  // Handle the 'load more' functionality
   const handleLoadMore = () => {
     setVisibleSessions((prev) => prev + 4); // Load 4 more sessions
   };
