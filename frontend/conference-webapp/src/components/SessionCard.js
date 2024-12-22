@@ -1,11 +1,21 @@
 import React, { useState } from "react";
-import { Card, Button } from "react-bootstrap"; // Removed Row and Col imports
+import { Card, Button } from "react-bootstrap";
 
-const SessionCard = ({ session, onShortlist, isShortlisted }) => {
+const SessionCard = ({
+  session,
+  onShortlist,
+  isShortlisted,
+  onAddToSchedule, // New prop for handling adding to schedule
+  isScheduled, // New prop to check if the session is already scheduled
+}) => {
   const [isExpanded, setIsExpanded] = useState(false); // State to toggle description
 
   const handleShortlistClick = () => {
     onShortlist(session); // Notify parent to add/remove session from shortlist
+  };
+
+  const handleAddToScheduleClick = () => {
+    onAddToSchedule(session); // Notify parent to add session to schedule
   };
 
   const toggleDescription = () => {
@@ -13,7 +23,6 @@ const SessionCard = ({ session, onShortlist, isShortlisted }) => {
   };
 
   return (
-    // Session Card
     <Card className="h-100 shadow-sm border-light rounded">
       <Card.Body>
         {/* Session Title */}
@@ -51,11 +60,12 @@ const SessionCard = ({ session, onShortlist, isShortlisted }) => {
 
         {/* Add to Schedule Button */}
         <Button
-          variant="success"
+          variant={isScheduled ? "secondary" : "success"}
           className="w-20 mb-2 mx-2"
-          onClick={() => {} /* Implement functionality later */}
+          onClick={handleAddToScheduleClick}
+          disabled={isScheduled} // Disable if already scheduled
         >
-          Add to Schedule
+          {isScheduled ? "Scheduled" : "Add to Schedule"}
         </Button>
       </Card.Body>
     </Card>

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import SessionCard from "../components/SessionCard"; 
-import FilterControls from "../components/FilterControl"; 
-import SearchBar from "../components/SearchBar"; 
+import SessionCard from "../components/SessionCard";
+import FilterControls from "../components/FilterControl";
+import SearchBar from "../components/SearchBar";
 
-const SessionsPage = ({ sessions, shortlist, onShortlist }) => {
+const SessionsPage = ({ sessions, shortlist, schedule, onShortlist, onAddToSchedule }) => {
   const [visibleSessions, setVisibleSessions] = useState(4); // Number of visible sessions
-  const [activeFilters, setActiveFilters] = useState({}); // Active filters 
+  const [activeFilters, setActiveFilters] = useState({}); // Active filters
   const [searchTerm, setSearchTerm] = useState(""); // State for search term
 
   // Handle filter changes
@@ -32,7 +32,7 @@ const SessionsPage = ({ sessions, shortlist, onShortlist }) => {
           session.tags.some((tag) => tag.toLowerCase().includes(searchTerm))
         : true;
 
-      // Apply active filters 
+      // Apply active filters
       const matchesSpeaker = activeFilters.speaker
         ? session.speaker === activeFilters.speaker
         : true;
@@ -91,7 +91,9 @@ const SessionsPage = ({ sessions, shortlist, onShortlist }) => {
             <SessionCard
               session={session}
               isShortlisted={shortlist.some((item) => item.id === session.id)}
+              isScheduled={schedule.some((item) => item.id === session.id)} // Check if session is scheduled
               onShortlist={onShortlist}
+              onAddToSchedule={onAddToSchedule}
             />
           </Col>
         ))}
