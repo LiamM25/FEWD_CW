@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import ShortlistedSessionCard from "../components/ShortlistedSessionCard";
 
+
 const ShortlistedPage = ({ shortlist, schedule, onRemoveFromShortlist, onAddToSchedule }) => {
   return (
     <Container className="mt-4">

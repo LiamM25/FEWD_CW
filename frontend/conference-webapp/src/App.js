@@ -5,6 +5,10 @@ import LandingSection from "./pages/LandingSection";
 import SchedulePage from "./pages/SchedulePage";
 import axios from "axios";
 
+import D1 from "./divisors/d1";
+import D2 from "./divisors/d2";
+
+
 function App() {
   const [sessions, setSessions] = useState([]); // Sessions data from the API
   const [shortlist, setShortlist] = useState([]); // Manage the shortlisted sessions
@@ -55,20 +59,18 @@ function App() {
     );
   };
 
-    // Handle session ratings
-    const handleRateSession = (session, rating) => {
-      setSchedule((prevSchedule) =>
-        prevSchedule.map((s) =>
-          s.id === session.id ? { ...s, userRating: rating } : s
-        )
-      );
-    };
-
-  
+  // Handle session ratings
+  const handleRateSession = (session, rating) => {
+    setSchedule((prevSchedule) =>
+      prevSchedule.map((s) =>
+        s.id === session.id ? { ...s, userRating: rating } : s
+      )
+    );
+  };
 
   return (
     <div className="App">
-      <main>
+      <div>
         <LandingSection />
 
         <SessionsPage
@@ -78,20 +80,31 @@ function App() {
           onAddToSchedule={handleAddToSchedule} // Pass scheduling handler
           schedule={schedule} // Pass schedule state
         />
+      </div>
 
+
+      <div>
         <ShortlistedPage
           shortlist={shortlist} // Pass shortlist to ShortlistedPage
           schedule={schedule} // Pass schedule state
           onRemoveFromShortlist={handleDeleteFromShortlist} // Pass remove handler
           onAddToSchedule={handleAddToSchedule} // Add to schedule handler
         />
+      </div>
 
+      <div>
+        <D2></D2>
+        <D1></D1>
+      </div>
+
+
+      <div>
         <SchedulePage
           schedule={schedule}
           onRemoveFromSchedule={handleRemoveFromSchedule}
           onRateSession={handleRateSession} // Pass rate handler
         />
-      </main>
+      </div>
     </div>
   );
 }
