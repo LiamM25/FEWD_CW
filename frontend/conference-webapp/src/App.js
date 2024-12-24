@@ -55,6 +55,17 @@ function App() {
     );
   };
 
+    // Handle session ratings
+    const handleRateSession = (session, rating) => {
+      setSchedule((prevSchedule) =>
+        prevSchedule.map((s) =>
+          s.id === session.id ? { ...s, userRating: rating } : s
+        )
+      );
+    };
+
+  
+
   return (
     <div className="App">
       <main>
@@ -70,6 +81,7 @@ function App() {
 
         <ShortlistedPage
           shortlist={shortlist} // Pass shortlist to ShortlistedPage
+          schedule={schedule} // Pass schedule state
           onRemoveFromShortlist={handleDeleteFromShortlist} // Pass remove handler
           onAddToSchedule={handleAddToSchedule} // Add to schedule handler
         />
@@ -77,6 +89,7 @@ function App() {
         <SchedulePage
           schedule={schedule}
           onRemoveFromSchedule={handleRemoveFromSchedule}
+          onRateSession={handleRateSession} // Pass rate handler
         />
       </main>
     </div>
