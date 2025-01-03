@@ -8,7 +8,8 @@ const LandingSection = () => {
       <Container>
         <Row className="h-100 align-items-center">
           <Col md={4} className="text-left">
-            <h1 className="display-1">DEV<br></br>CON</h1>
+            <h1 className="display-1">DEV<br></br>TALKS
+          </h1>
           </Col>
           <Col md={4}></Col>
           

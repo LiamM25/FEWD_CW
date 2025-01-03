@@ -1,10 +1,7 @@
 .schedule-background {
   background: linear-gradient(0deg, #e15320, #ffbb00a4, rgba(0, 0, 0, 0));
-    
   color: white;
   padding: 100px ;
-  /* Space for the content */
   height: 34vh;
-  /* Full viewport height */
 }
   

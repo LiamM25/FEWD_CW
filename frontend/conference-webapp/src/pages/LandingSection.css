@@ -1,37 +1,29 @@
 .landing-section {
     background: linear-gradient(180deg, #e15320, #ffbb00a4, rgba(0, 0, 0, 0));
-    
     color: white;
     padding: 100px ;
-    /* Space for the content */
     height: 34vh;
-    /* Full viewport height */
+    
 }
 
-/* Large title styling */
 .landing-heading {
     font-size: 5rem;
-    /* Large heading font size */
     font-weight: 700;
-    /* Bold text */
     line-height: 1.2;
     margin-bottom: 20px;
 }
 
-/* Subheading styling */
 .landing-subheading {
     font-size: 2rem;
     font-weight: 400;
 }
 
-/* Date styling */
 .landing-date {
     font-size: 1.25rem;
     font-weight: 300;
     margin-top: 20px;
 }
 
-/* Ensure the content is vertically centered */
 h1,
 p {
     margin: 0;
@@ -40,7 +32,7 @@ p {
 /* Responsive styles for smaller screens */
 @media (max-width: 768px) {
 
-    /* For small screens, center the text and stack the columns */
+    
     .landing-heading {
         font-size: 2.5rem;
     }
@@ -52,11 +44,9 @@ p {
 
     .text-right {
         text-align: center;
-        /* Center text on smaller screens */
     }
 
     .text-left {
         text-align: center;
-        /* Center text on smaller screens */
     }
 }

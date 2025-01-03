@@ -3,9 +3,9 @@ import { Card, Button } from "react-bootstrap";
 
 const ShortlistedSessionCard = ({
   session,
-  onRemoveFromShortlist, // Handler to remove session from shortlist
-  onAddToSchedule, // Handler for adding to schedule
-  isScheduled, // New prop to check if the session is already scheduled
+  onRemoveFromShortlist, //remove session from shortlist
+  onAddToSchedule, //adding to schedule
+  isScheduled, //check if the session is already scheduled
 }) => {
   return (
     <Card className="session-card h-100">

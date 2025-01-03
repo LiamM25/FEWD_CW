@@ -7,7 +7,7 @@ const ScheduleSessionCard = ({
   onRemoveFromSchedule,
   onRateSession,
 }) => {
-  const [userRating, setUserRating] = useState(session.userRating || 0); // State for user's rating
+  const [userRating, setUserRating] = useState(session.userRating || 0); // State for users rating
 
   // Calculate the average rating
   const calculateAverageRating = (ratings) => {

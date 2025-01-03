@@ -1,0 +1,23 @@
+/**e15320**/
+
+.custom-shape-divider-top-1735071424 {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-top-1735071424 svg {
+    position: relative;
+    display: block;
+    width: calc(172% + 1.3px);
+    height: 180px;
+    transform: rotateY(180deg);
+}
+
+.custom-shape-divider-top-1735071424 .shape-fill {
+    fill: #e16720a3;
+}

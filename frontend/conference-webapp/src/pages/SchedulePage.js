@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import ScheduleSessionCard from "../components/ScheduleSessionCard"; // Import ScheduleSessionCard
+import ScheduleSessionCard from "../components/ScheduleSessionCard";
 
 const SchedulePage = ({ schedule, onRemoveFromSchedule, onRateSession }) => {
   return (
