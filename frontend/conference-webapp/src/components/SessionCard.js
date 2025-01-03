@@ -5,8 +5,8 @@ const SessionCard = ({
   session,
   onShortlist,
   isShortlisted,
-  onAddToSchedule, // New prop for handling adding to schedule
-  isScheduled, // New prop to check if the session is already scheduled
+  onAddToSchedule, //for handling adding to schedule
+  isScheduled, //check if the session is already scheduled
 }) => {
   const [isExpanded, setIsExpanded] = useState(false); // State to toggle description
 

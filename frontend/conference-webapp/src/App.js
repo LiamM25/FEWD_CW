@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+
+import NavigationBar from "./components/Navbar";
 import SessionsPage from "./pages/SessionsPage";
 import ShortlistedPage from "./pages/ShortlistedPage";
 import LandingSection from "./pages/LandingSection";
 import SchedulePage from "./pages/SchedulePage";
-import axios from "axios";
+import Footer from "./components/Footer";
 
 import D1 from "./divisors/d1";
 import D2 from "./divisors/d2";
 
-
 function App() {
   const [sessions, setSessions] = useState([]); // Sessions data from the API
   const [shortlist, setShortlist] = useState([]); // Manage the shortlisted sessions
-  const [schedule, setSchedule] = useState([]); // State to manage scheduled session
+  const [schedule, setSchedule] = useState([]); // State to manage scheduled sessions
 
   useEffect(() => {
     axios
@@ -70,41 +72,50 @@ function App() {
 
   return (
     <div className="App">
-      <div>
+      {/* Navigation Bar */}
+      <NavigationBar />
+
+      {/* Landing Section */}
+      <section id="landing">
         <LandingSection />
+      </section>
 
+      {/* Sessions Section */}
+      <section id="sessions">
         <SessionsPage
-          sessions={sessions} // Pass sessions to SessionsPage
-          shortlist={shortlist} // Pass shortlist to SessionsPage
-          onShortlist={handleShortlist} // Pass shortlist handler to SessionsPage
-          onAddToSchedule={handleAddToSchedule} // Pass scheduling handler
-          schedule={schedule} // Pass schedule state
+          sessions={sessions}
+          shortlist={shortlist}
+          onShortlist={handleShortlist}
+          onAddToSchedule={handleAddToSchedule}
+          schedule={schedule}
         />
-      </div>
+      </section>
 
-
-      <div>
+      {/* Shortlist Section */}
+      <section id="shortlist">
         <ShortlistedPage
-          shortlist={shortlist} // Pass shortlist to ShortlistedPage
-          schedule={schedule} // Pass schedule state
-          onRemoveFromShortlist={handleDeleteFromShortlist} // Pass remove handler
-          onAddToSchedule={handleAddToSchedule} // Add to schedule handler
+          shortlist={shortlist}
+          schedule={schedule}
+          onRemoveFromShortlist={handleDeleteFromShortlist}
+          onAddToSchedule={handleAddToSchedule}
         />
-      </div>
+      </section>
+      <D2></D2>
+      <D1></D1>
 
-      <div>
-        <D2></D2>
-        <D1></D1>
-      </div>
-
-
-      <div>
+      {/* Schedule Section */}
+      <section id="schedule">
         <SchedulePage
           schedule={schedule}
           onRemoveFromSchedule={handleRemoveFromSchedule}
-          onRateSession={handleRateSession} // Pass rate handler
+          onRateSession={handleRateSession}
         />
-      </div>
+      </section>
+
+      {/* Footer */}
+      <section id="footer">
+        <Footer />
+      </section>
     </div>
   );
 }

@@ -13,7 +13,7 @@ const SessionsPage = ({ sessions, shortlist, schedule, onShortlist, onAddToSched
   const handleFilterChange = (filters) => {
     setActiveFilters((prevFilters) => ({
       ...prevFilters,
-      ...filters, // Update the relevant filter
+      ...filters,
     }));
   };
 
@@ -50,7 +50,7 @@ const SessionsPage = ({ sessions, shortlist, schedule, onShortlist, onAddToSched
           ? session.tags.includes(activeFilters.tags)
           : true;
 
-      // Return the session if all filters (search and active) match
+      // Return the session if filters match
       return (
         matchesSearchTerm &&
         matchesSpeaker &&
@@ -64,7 +64,7 @@ const SessionsPage = ({ sessions, shortlist, schedule, onShortlist, onAddToSched
   // Get the filtered sessions
   const filteredSessions = getFilteredSessions();
 
-  // Handle the 'load more' functionality
+  // Handle the 'load more'
   const handleLoadMore = () => {
     setVisibleSessions((prev) => prev + 4); // Load 4 more sessions
   };

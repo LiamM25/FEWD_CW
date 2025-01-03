@@ -8,7 +8,7 @@ const ShortlistedPage = ({ shortlist, schedule, onRemoveFromShortlist, onAddToSc
     <Container className="mt-4">
       <h2 className="text-left mb-4 display-4">/Shortlist</h2>
 
-      {/* If no sessions are shortlisted, display a message */}
+      {/* If no sessions are shortlisted display message */}
       {shortlist.length === 0 ? (
         <p>Empty!</p>
       ) : (
