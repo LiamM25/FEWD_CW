@@ -17,8 +17,15 @@ function App() {
   const [schedule, setSchedule] = useState([]); // State to manage scheduled sessions
 
   useEffect(() => {
+    // Determine the API URL based on the environment
+    const API_URL =
+      window.location.hostname === "localhost"
+        ? "http://localhost:3001/talks"
+        : "https://fewd-coursework2425-backend.onrender.com/talks";
+
+    // Fetch sessions from API
     axios
-      .get("http://localhost:3001/talks") // Fetch sessions from API
+      .get(API_URL)
       .then((response) => setSessions(response.data))
       .catch((error) => console.error("Error fetching sessions:", error));
   }, []);
