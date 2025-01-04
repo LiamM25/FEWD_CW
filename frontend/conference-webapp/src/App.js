@@ -20,7 +20,6 @@ function App() {
     //wake up backend function to populate front end
     const wakeUpBackend = async () => {
       try {
-        // A simple request to trigger backend to wake up
         await axios.get('https://fewd-coursework2425-backend.onrender.com/wakeup');
       } catch (error) {
         console.error("Error waking up the backend:", error);
@@ -62,7 +61,7 @@ function App() {
   // Check if a session can be added to the schedule
   const canAddToSchedule = (session) => {
     return !schedule.some(
-      (s) => s.session === session.session && s.time === session.time
+      (s) => s.time === session.time
     );
   };
 
