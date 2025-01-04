@@ -17,6 +17,20 @@ function App() {
   const [schedule, setSchedule] = useState([]); // State to manage scheduled sessions
 
   useEffect(() => {
+    //wake up backend function to populate front end
+    const wakeUpBackend = async () => {
+      try {
+        // A simple request to trigger backend to wake up
+        await axios.get('https://fewd-coursework2425-backend.onrender.com/wakeup');
+      } catch (error) {
+        console.error("Error waking up the backend:", error);
+      }
+    };
+  
+    
+    wakeUpBackend();
+
+
     // Determine the API URL based on the environment
     const API_URL =
       window.location.hostname === "localhost"
